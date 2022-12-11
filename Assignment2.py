@@ -11,13 +11,13 @@ import matplotlib.pyplot as plt
 
 def read_file(filename):
     data = pd.read_excel(filename)
-    dtranspose= data.set_index('Country Name').transpose()
-    return data, dtranspose
+    datatranspose= data.set_index('Country Name').transpose()
+    return data, datatranspose
     
 
-coun_list1= ['China','United Kingdom','India','Cuba','Italy','Argentina']
+country_list1= ['China','United Kingdom','India','Cuba','Italy','Argentina']
 
-coun_list2= ['India','Pakistan','Saudi Arabia','Australia','Bangladesh','France']
+country_list2= ['India','Pakistan','Saudi Arabia','Australia','Bangladesh','France']
 
 def filter_bar_data(data):
     data=data[['Country Name','Indicator Name', '1995','1996','1997','1998','1999']]
@@ -49,16 +49,18 @@ def barplot(data, label1, label2):
     bar1= ax.bar(x, data["1995"],width,label= 1995)
     bar2= ax.bar(x+width, data["1996"], width, label=1996)
     bar3= ax.bar(x+width*2, data["1997"], width, label=1997)
+   
     
     ax.set_xlabel("Country Names", fontsize= 40)
     ax.set_ylabel(label1, fontsize= 40)
     ax.set_title(label2, fontsize=40)
-    ax.set_xticks(x, coun_list1, fontsize=30, rotation=90)
+    ax.set_xticks(x, country_list1, fontsize=30, rotation=90)
     ax.legend(fontsize=30)
              
     ax.bar_label(bar1, padding=2, rotation=90, fontsize= 18)
     ax.bar_label(bar2, padding=2, rotation=90, fontsize= 18)
     ax.bar_label(bar3, padding=2, rotation=90, fontsize= 18)
+    
     plt.show()    
      
            
@@ -67,8 +69,8 @@ def line_plot(data,label1,label2):
     dd = data.set_index('Country Name')
     tran = dd.transpose()
     tran = tran.drop(index=['Indicator Name'])
-    for i in range(len(coun_list2)):
-        plt.plot(tran.index, tran[coun_list2[i]], label=coun_list2[i])
+    for i in range(len(country_list2)):
+        plt.plot(tran.index, tran[country_list2[i]], label=country_list2[i],linestyle='dashed',linewidth='3')
         
     plt.title(label2, size=18)
     plt.xlabel("Years", size=12)
@@ -86,7 +88,7 @@ Greenhouse_data = filter_bar_data(Greenhouse_data)
 
 Population_data,Population_data1=read_file("C:/Users/HP/Documents/fname/Population growth.xls")   
 Population_data= filter_line_plot(Population_data)
-Urban_pop_data, Urban_pop_data1 = read_file("C:/Users/HP/Documents/fname/Urban population1.xls")             
+Urban_pop_data, Urban_pop_data1 = read_file("C:/Users/HP/Documents/fname/urban population.xls")             
 Urban_pop_data= filter_line_plot(Urban_pop_data)          
 
 
