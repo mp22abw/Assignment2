@@ -15,7 +15,7 @@ def read_file(filename):
     return data, datatranspose
     
 
-country_list1= ['China','United Kingdom','India','Cuba','Italy','Argentina']
+country_list1= ['China','United Kingdom','India','Cuba','Italy']
 
 country_list2= ['India','Pakistan','Saudi Arabia','Australia','Bangladesh','France']
 
@@ -25,12 +25,12 @@ def filter_bar_data(data):
                  (data["Country Name"]=="United Kingdom") | 
                  (data["Country Name"]=="India") |
                  (data["Country Name"]=="Cuba") | 
-                 (data["Country Name"]=="Italy") |
-                 (data["Country Name"]=="Argentina")]
+                 (data["Country Name"]=="Italy") ]
+             
     return data
 
 def filter_line_plot(data):
-    data=data[['Country Name','Indicator Name','1990','2000','1994','2013','2019']]
+    data=data[['Country Name','Indicator Name','1995','2000','2005','2010','2015']]
     data =data [(data["Country Name"]=="India") | 
                 (data["Country Name"]=="Pakistan") | 
                 (data["Country Name"]=="Saudi Arabia") |
@@ -41,14 +41,15 @@ def filter_line_plot(data):
     
     
 def barplot(data, label1, label2):
-    plt.figure(figsize=(25,19))
+    plt.figure(figsize=(30,20))
     ax= plt.subplot(1,1,1)
-    x = np.arange(6)
+    x = np.arange(5)
     width= 0.2
 
     bar1= ax.bar(x, data["1995"],width,label= 1995)
     bar2= ax.bar(x+width, data["1996"], width, label=1996)
     bar3= ax.bar(x+width*2, data["1997"], width, label=1997)
+    bar4= ax.bar(x+width*3, data["1998"], width, label=1998)
    
     
     ax.set_xlabel("Country Names", fontsize= 40)
@@ -60,6 +61,7 @@ def barplot(data, label1, label2):
     ax.bar_label(bar1, padding=2, rotation=90, fontsize= 18)
     ax.bar_label(bar2, padding=2, rotation=90, fontsize= 18)
     ax.bar_label(bar3, padding=2, rotation=90, fontsize= 18)
+    ax.bar_label(bar4, padding=2, rotation=90, fontsize= 18)
     
     plt.show()    
      
@@ -72,11 +74,11 @@ def line_plot(data,label1,label2):
     for i in range(len(country_list2)):
         plt.plot(tran.index, tran[country_list2[i]], label=country_list2[i],linestyle='dashed',linewidth='3')
         
-    plt.title(label2, size=18)
-    plt.xlabel("Years", size=12)
-    plt.ylabel(label1, size=12)
+    plt.title(label2, size=20)
+    plt.xlabel("Years", size=30)
+    plt.ylabel(label1, size=30)
     plt.xticks(rotation=90)
-    plt.legend(fontsize=6)
+    plt.legend(fontsize=16)
     plt.savefig("lineplot.png")
     plt.show()
              
@@ -93,7 +95,7 @@ Urban_pop_data= filter_line_plot(Urban_pop_data)
 
 
 
-barplot(Energy_data, "Energy Use data (kg of oil equivalent per capita)","Total Forest Area")
+barplot(Energy_data, "Energy Use data (kg of oil equivalent per capita)","Energy Use")
 barplot(Greenhouse_data, "Total greenhouse gas emission(kg of oil equivalent per capita)","Total greenhouse gas emission") 
 
 line_plot(Population_data,"Population growth","Population growth (annual %)")
